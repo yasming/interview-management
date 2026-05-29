@@ -4,7 +4,7 @@ defmodule InterviewManagment.Interviews.Interview do
 
   schema "interviews" do
     field :date, :date
-    field :description, :text
+    field :description, :string
     field :link, :string
     field :company_name, :string
 

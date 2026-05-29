@@ -4,7 +4,7 @@ defmodule InterviewManagment.Repo.Migrations.CreateInterviews do
   def change do
     create table(:interviews) do
       add :date, :date, null: false
-      add :description, :text
+      add :description, :string
       add :link, :string
       add :company_name, :string, null: false
 
