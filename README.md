@@ -1,4 +1,4 @@
-# InterviewManagment
+# InterviewManagement
 
 A small Phoenix (Elixir) app to manage the job interviews you've applied to,
 track each company, the date you applied, the date they contacted you, the
