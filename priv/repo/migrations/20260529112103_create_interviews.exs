@@ -3,9 +3,10 @@ defmodule InterviewManagment.Repo.Migrations.CreateInterviews do
 
   def change do
     create table(:interviews) do
-      add :date, :date, null: false
-      add :description, :string
-      add :link, :string
+      add :date_applied, :date, null: false
+      add :date_contacted, :date
+      add :description, :string, null: false
+      add :link, :string, null: false
       add :company_name, :string, null: false
 
       timestamps(type: :utc_datetime)

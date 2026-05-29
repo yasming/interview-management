@@ -3,7 +3,8 @@ defmodule InterviewManagment.Interviews.Interview do
   import Ecto.Changeset
 
   schema "interviews" do
-    field :date, :date
+    field :date_applied, :date
+    field :date_contacted, :date
     field :description, :string
     field :link, :string
     field :company_name, :string
@@ -13,7 +14,7 @@ defmodule InterviewManagment.Interviews.Interview do
 
   def changeset(interview, attrs) do
     interview
-    |> cast(attrs, [:date, :description, :link, :company_name])
-    |> validate_required([:date, :company_name])
+    |> cast(attrs, [:date_applied, :date_contacted, :description, :link, :company_name])
+    |> validate_required([:date_applied, :description, :link, :company_name])
   end
 end

@@ -8,7 +8,7 @@ defmodule InterviewManagment.Interviews do
   alias InterviewManagment.Interviews.Interview
 
   def list_interviews do
-    Repo.all(from i in Interview, order_by: [desc: i.date])
+    Repo.all(from i in Interview, order_by: [desc: i.date_applied])
   end
 
   def create_interview(attrs \\ %{}) do
