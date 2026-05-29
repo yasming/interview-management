@@ -1,0 +1,49 @@
+<Layouts.app flash={@flash}>
+  <.header>
+    Interviews
+    <:actions>
+      <button type="button" class="btn btn-primary" onclick="interview_modal.showModal()">
+        Add
+      </button>
+    </:actions>
+  </.header>
+
+  <.table id="interviews" rows={@interviews}>
+    <:col :let={interview} label="Date">{interview.date}</:col>
+    <:col :let={interview} label="Description">{interview.description}</:col>
+    <:col :let={interview} label="Link">
+      <.link
+        :if={interview.link not in [nil, ""]}
+        href={interview.link}
+        class="link"
+        target="_blank"
+      >
+        {interview.link}
+      </.link>
+    </:col>
+    <:col :let={interview} label="Company name">{interview.company_name}</:col>
+  </.table>
+
+  <dialog id="interview_modal" class="modal">
+    <div class="modal-box">
+      <h3 class="text-lg font-semibold mb-4">Add interview</h3>
+      <.form for={@form} action={~p"/interviews"} method="post" class="space-y-4">
+        <.input field={@form[:date]} type="date" label="Date" />
+        <.input field={@form[:description]} type="text" label="Description" />
+        <.input field={@form[:link]} type="url" label="Link" />
+        <.input field={@form[:company_name]} type="text" label="Company name" />
+        <div class="modal-action">
+          <button type="button" class="btn" onclick="interview_modal.close()">Cancel</button>
+          <.button variant="primary" type="submit">Save</.button>
+        </div>
+      </.form>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+  </dialog>
+
+  <script :if={@form.source.action} type="text/javascript">
+    interview_modal.showModal();
+  </script>
+</Layouts.app>

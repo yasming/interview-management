@@ -17,7 +17,8 @@ defmodule InterviewManagmentWeb.Router do
   scope "/", InterviewManagmentWeb do
     pipe_through :browser
 
-    get "/", DashboardController, :index
+    get "/", InterviewController, :index
+    post "/interviews", InterviewController, :create
   end
 
   # Other scopes may use custom stacks.
