@@ -1,18 +1,13 @@
 # InterviewManagment
 
-To start your Phoenix server:
+A small Phoenix (Elixir) app to manage the job interviews you've applied to,
+track each company, the date you applied, the date they contacted you, the
+description, and the link from the application. Some charts for you have better statistics are coming soon.
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+![Screenshot of the interviews list](docs/screenshot.png)
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Getting started
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+* Run `mix setup` to install dependencies and set up the database
+* Start the server with `mix phx.server` (or `iex -S mix phx.server`)
+* Visit [`localhost:4000`](http://localhost:4000)
