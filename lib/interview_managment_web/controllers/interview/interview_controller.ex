@@ -7,6 +7,7 @@ defmodule InterviewManagmentWeb.InterviewController do
   def index(conn, _params) do
     render(conn, :index,
       interviews: Interviews.list_interviews(),
+      applied_today: Interviews.count_applied_on(Date.utc_today()),
       form: Phoenix.Component.to_form(Interviews.change_interview(%Interview{}))
     )
   end
@@ -23,6 +24,7 @@ defmodule InterviewManagmentWeb.InterviewController do
         |> put_flash(:error, "Please fix the errors below.")
         |> render(:index,
           interviews: Interviews.list_interviews(),
+          applied_today: Interviews.count_applied_on(Date.utc_today()),
           form: Phoenix.Component.to_form(changeset)
         )
     end

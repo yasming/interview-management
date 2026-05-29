@@ -8,6 +8,19 @@
     </:actions>
   </.header>
 
+  <div class="stats bg-primary text-primary-content shadow">
+    <div class="stat">
+      <div class="stat-figure text-primary-content/70">
+        <.icon name="hero-paper-airplane" class="size-8" />
+      </div>
+      <div class="stat-title text-primary-content/70">Applied today</div>
+      <div class="stat-value">{@applied_today}</div>
+      <div class="stat-desc text-primary-content/70">
+        position{if @applied_today != 1, do: "s"} on {Date.utc_today()}
+      </div>
+    </div>
+  </div>
+
   <.table id="interviews" rows={@interviews}>
     <:col :let={interview} label="Date applied">{interview.date_applied}</:col>
     <:col :let={interview} label="Date contacted">
