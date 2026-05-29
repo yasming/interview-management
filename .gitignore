@@ -35,3 +35,4 @@ interview_managment-*.tar
 npm-debug.log
 /assets/node_modules/
 
+.idea

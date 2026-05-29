@@ -2,13 +2,10 @@ import Config
 
 # Configure your database
 config :interview_managment, InterviewManagment.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "interview_managment_dev",
+  database: Path.expand("../interview_managment_dev.db", __DIR__),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: 5
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
