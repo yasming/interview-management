@@ -28,14 +28,15 @@
     </:col>
     <:col :let={interview} label="Description">{interview.description}</:col>
     <:col :let={interview} label="Link">
-      <.link
+      <a
         :if={interview.link not in [nil, ""]}
         href={interview.link}
         class="link"
         target="_blank"
+        rel="noopener noreferrer"
       >
-        {interview.link}
-      </.link>
+        link
+      </a>
     </:col>
     <:col :let={interview} label="Company name">{interview.company_name}</:col>
     <:col :let={interview} label="Got interview">
