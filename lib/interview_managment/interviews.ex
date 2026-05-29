@@ -28,4 +28,8 @@ defmodule InterviewManagment.Interviews do
   def change_interview(%Interview{} = interview, attrs \\ %{}) do
     Interview.changeset(interview, attrs)
   end
+
+  def toggle_got_interview(%Interview{} = interview) do
+    update_interview(interview, %{got_interview: !interview.got_interview})
+  end
 end

@@ -20,6 +20,7 @@ defmodule InterviewManagmentWeb.Router do
     get "/", InterviewController, :index
     post "/interviews", InterviewController, :create
     patch "/interviews/:id/contacted", InterviewController, :update_contacted
+    patch "/interviews/:id/got_interview", InterviewController, :toggle_got_interview
   end
 
   # Other scopes may use custom stacks.

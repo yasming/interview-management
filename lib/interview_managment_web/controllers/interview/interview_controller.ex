@@ -28,6 +28,20 @@ defmodule InterviewManagmentWeb.InterviewController do
     end
   end
 
+  def toggle_got_interview(conn, %{"id" => id}) do
+    interview = Interviews.get_interview!(id)
+
+    case Interviews.toggle_got_interview(interview) do
+      {:ok, _interview} ->
+        redirect(conn, to: ~p"/")
+
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "Could not update the interview status.")
+        |> redirect(to: ~p"/")
+    end
+  end
+
   def update_contacted(conn, %{"id" => id, "interview" => interview_params}) do
     interview = Interviews.get_interview!(id)
 

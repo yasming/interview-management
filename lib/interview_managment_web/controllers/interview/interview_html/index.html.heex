@@ -38,6 +38,30 @@
       </.link>
     </:col>
     <:col :let={interview} label="Company name">{interview.company_name}</:col>
+    <:col :let={interview} label="Got interview">
+      <.form
+        for={%{}}
+        action={~p"/interviews/#{interview.id}/got_interview"}
+        method="patch"
+      >
+        <button
+          type="submit"
+          class="btn btn-ghost btn-sm btn-circle"
+          title={if interview.got_interview, do: "Got interview", else: "No interview yet"}
+        >
+          <.icon
+            :if={interview.got_interview}
+            name="hero-check-circle-solid"
+            class="size-6 text-success"
+          />
+          <.icon
+            :if={!interview.got_interview}
+            name="hero-check-circle"
+            class="size-6 text-base-content/30"
+          />
+        </button>
+      </.form>
+    </:col>
   </.table>
 
   <.interview_modal form={@form} />
