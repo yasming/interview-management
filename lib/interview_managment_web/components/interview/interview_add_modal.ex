@@ -1,12 +1,8 @@
-defmodule InterviewManagmentWeb.InterviewHTML do
+defmodule InterviewManagmentWeb.InterviewAddModal do
   @moduledoc """
-  This module contains pages rendered by InterviewController.
-
-  See the `interview_html` directory for all templates available.
+  The modal dialog used to add a new interview.
   """
   use InterviewManagmentWeb, :html
-
-  embed_templates "interview_html/*"
 
   @doc """
   Renders the modal dialog used to add a new interview.
