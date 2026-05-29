@@ -50,6 +50,11 @@ defmodule InterviewManagmentWeb.CoreComponents do
   attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
   attr :title, :string, default: nil
   attr :kind, :atom, values: [:info, :error], doc: "used for styling and flash lookup"
+
+  attr :dismiss_after, :any,
+    default: 2000,
+    doc: "auto-dismiss the flash after the given number of milliseconds; pass nil to keep it"
+
   attr :rest, :global, doc: "the arbitrary HTML attributes to add to the flash container"
 
   slot :inner_block, doc: "the optional inner block that renders the flash message"
@@ -63,7 +68,8 @@ defmodule InterviewManagmentWeb.CoreComponents do
       id={@id}
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
-      class="toast toast-top toast-end z-50"
+      class={["toast toast-top toast-end z-50", @dismiss_after && "flash-auto-dismiss"]}
+      style={@dismiss_after && "--flash-dismiss-delay: #{@dismiss_after}ms"}
       {@rest}
     >
       <div class={[

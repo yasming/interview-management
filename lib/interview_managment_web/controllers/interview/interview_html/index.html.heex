@@ -10,7 +10,22 @@
 
   <.table id="interviews" rows={@interviews}>
     <:col :let={interview} label="Date applied">{interview.date_applied}</:col>
-    <:col :let={interview} label="Date contacted">{interview.date_contacted}</:col>
+    <:col :let={interview} label="Date contacted">
+      <.form
+        for={%{}}
+        action={~p"/interviews/#{interview.id}/contacted"}
+        method="patch"
+        class="flex items-center gap-2"
+      >
+        <input
+          type="date"
+          name="interview[date_contacted]"
+          value={interview.date_contacted}
+          class="input input-sm"
+        />
+        <button type="submit" class="btn btn-sm btn-primary">Save</button>
+      </.form>
+    </:col>
     <:col :let={interview} label="Description">{interview.description}</:col>
     <:col :let={interview} label="Link">
       <.link

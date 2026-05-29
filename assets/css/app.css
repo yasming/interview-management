@@ -103,3 +103,16 @@
 [data-phx-session], [data-phx-teleported-src] { display: contents }
 
 /* This file is for your main application CSS */
+
+/* Auto-dismiss flashes: fade out after a delay, then stop intercepting clicks.
+   The delay is set per-flash via the `--flash-dismiss-delay` custom property. */
+@keyframes flash-auto-dismiss {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.flash-auto-dismiss {
+  animation: flash-auto-dismiss 0.4s ease-in var(--flash-dismiss-delay, 2s) forwards;
+}

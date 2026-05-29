@@ -27,4 +27,20 @@ defmodule InterviewManagmentWeb.InterviewController do
         )
     end
   end
+
+  def update_contacted(conn, %{"id" => id, "interview" => interview_params}) do
+    interview = Interviews.get_interview!(id)
+
+    case Interviews.update_interview(interview, interview_params) do
+      {:ok, _interview} ->
+        conn
+        |> put_flash(:info, "Contacted date updated.")
+        |> redirect(to: ~p"/")
+
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "Could not update the contacted date.")
+        |> redirect(to: ~p"/")
+    end
+  end
 end
