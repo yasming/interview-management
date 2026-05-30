@@ -8,15 +8,43 @@
     </:actions>
   </.header>
 
-  <div class="stats bg-primary text-primary-content shadow">
-    <div class="stat">
-      <div class="stat-figure text-primary-content/70">
-        <.icon name="hero-paper-airplane" class="size-8" />
+  <div class="flex flex-wrap gap-4">
+    <div class="stats bg-primary text-primary-content shadow">
+      <div class="stat">
+        <div class="stat-figure text-primary-content/70">
+          <.icon name="hero-paper-airplane" class="size-8" />
+        </div>
+        <div class="stat-title text-primary-content/70">Applied today</div>
+        <div class="stat-value">{@applied_today}</div>
+        <div class="stat-desc text-primary-content/70">
+          position{if @applied_today != 1, do: "s"} on {Date.utc_today()}
+        </div>
       </div>
-      <div class="stat-title text-primary-content/70">Applied today</div>
-      <div class="stat-value">{@applied_today}</div>
-      <div class="stat-desc text-primary-content/70">
-        position{if @applied_today != 1, do: "s"} on {Date.utc_today()}
+    </div>
+
+    <div class="stats bg-primary text-primary-content shadow">
+      <div class="stat">
+        <div class="stat-figure text-primary-content/70">
+          <.icon name="hero-briefcase" class="size-8" />
+        </div>
+        <div class="stat-title text-primary-content/70">Total applied</div>
+        <div class="stat-value">{@total_applied}</div>
+        <div class="stat-desc text-primary-content/70">
+          position{if @total_applied != 1, do: "s"} applied to
+        </div>
+      </div>
+    </div>
+
+    <div class="stats bg-primary text-primary-content shadow">
+      <div class="stat">
+        <div class="stat-figure text-primary-content/70">
+          <.icon name="hero-check-circle" class="size-8" />
+        </div>
+        <div class="stat-title text-primary-content/70">Total interviews got</div>
+        <div class="stat-value">{@got_interview}</div>
+        <div class="stat-desc text-primary-content/70">
+          interview{if @got_interview != 1, do: "s"} secured
+        </div>
       </div>
     </div>
   </div>

@@ -17,6 +17,14 @@ defmodule InterviewManagment.Interviews do
     Repo.aggregate(from(i in Interview, where: i.date_applied == ^date), :count, :id)
   end
 
+  def count_total_applied do
+    Repo.aggregate(Interview, :count, :id)
+  end
+
+  def count_got_interview do
+    Repo.aggregate(from(i in Interview, where: i.got_interview == true), :count, :id)
+  end
+
   def create_interview(attrs \\ %{}) do
     %Interview{}
     |> Interview.changeset(attrs)

@@ -8,6 +8,8 @@ defmodule InterviewManagmentWeb.InterviewController do
     render(conn, :index,
       interviews: Interviews.list_interviews(),
       applied_today: Interviews.count_applied_on(Date.utc_today()),
+      total_applied: Interviews.count_total_applied(),
+      got_interview: Interviews.count_got_interview(),
       form: Phoenix.Component.to_form(Interviews.change_interview(%Interview{}))
     )
   end
@@ -25,6 +27,8 @@ defmodule InterviewManagmentWeb.InterviewController do
         |> render(:index,
           interviews: Interviews.list_interviews(),
           applied_today: Interviews.count_applied_on(Date.utc_today()),
+          total_applied: Interviews.count_total_applied(),
+          got_interview: Interviews.count_got_interview(),
           form: Phoenix.Component.to_form(changeset)
         )
     end
