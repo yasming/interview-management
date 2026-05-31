@@ -49,6 +49,18 @@
     </div>
   </div>
 
+  <.form for={%{}} action={~p"/"} method="get" class="flex items-center gap-2 mt-4">
+    <input
+      type="text"
+      name="search"
+      value={@search}
+      placeholder="Search by company name"
+      class="input input-bordered w-full max-w-xs"
+    />
+    <button type="submit" class="btn btn-primary">Search</button>
+    <a :if={@search not in [nil, ""]} href={~p"/"} class="btn btn-ghost">Clear</a>
+  </.form>
+
   <.table id="interviews" rows={@interviews}>
     <:col :let={interview} label="Date applied">{interview.date_applied}</:col>
     <:col :let={interview} label="Date contacted">

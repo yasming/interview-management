@@ -4,9 +4,12 @@ defmodule InterviewManagmentWeb.InterviewController do
   alias InterviewManagment.Interviews
   alias InterviewManagment.Interviews.Interview
 
-  def index(conn, _params) do
+  def index(conn, params) do
+    search = Map.get(params, "search", "")
+
     render(conn, :index,
-      interviews: Interviews.list_interviews(),
+      interviews: Interviews.list_interviews(search: search),
+      search: search,
       applied_today: Interviews.count_applied_on(Date.utc_today()),
       total_applied: Interviews.count_total_applied(),
       got_interview: Interviews.count_got_interview(),
@@ -26,6 +29,7 @@ defmodule InterviewManagmentWeb.InterviewController do
         |> put_flash(:error, "Please fix the errors below.")
         |> render(:index,
           interviews: Interviews.list_interviews(),
+          search: "",
           applied_today: Interviews.count_applied_on(Date.utc_today()),
           total_applied: Interviews.count_total_applied(),
           got_interview: Interviews.count_got_interview(),

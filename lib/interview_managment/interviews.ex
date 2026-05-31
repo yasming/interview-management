@@ -7,8 +7,31 @@ defmodule InterviewManagment.Interviews do
   alias InterviewManagment.Repo
   alias InterviewManagment.Interviews.Interview
 
-  def list_interviews do
-    Repo.all(from i in Interview, order_by: [desc: i.inserted_at, desc: i.id])
+  def list_interviews(opts \\ []) do
+    search = opts |> Keyword.get(:search) |> normalize_search()
+
+    Interview
+    |> filter_by_company_name(search)
+    |> order_by([i], desc: i.inserted_at, desc: i.id)
+    |> Repo.all()
+  end
+
+  defp normalize_search(nil), do: nil
+
+  defp normalize_search(search) when is_binary(search) do
+    case String.trim(search) do
+      "" -> nil
+      trimmed -> trimmed
+    end
+  end
+
+  defp filter_by_company_name(query, nil), do: query
+
+  defp filter_by_company_name(query, search) do
+    pattern = "%#{String.replace(search, ["%", "_"], &("\\" <> &1))}%"
+
+    from i in query,
+      where: like(fragment("lower(?)", i.company_name), fragment("lower(?)", ^pattern))
   end
 
   def get_interview!(id), do: Repo.get!(Interview, id)
