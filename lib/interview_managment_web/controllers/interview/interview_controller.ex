@@ -18,12 +18,12 @@ defmodule InterviewManagmentWeb.InterviewController do
     )
   end
 
-  def create(conn, %{"interview" => interview_params}) do
+  def create(conn, %{"interview" => interview_params} = params) do
     case Interviews.create_interview(interview_params) do
       {:ok, _interview} ->
         conn
         |> put_flash(:info, "Interview added.")
-        |> redirect(to: ~p"/")
+        |> redirect(to: index_path(params))
 
       {:error, changeset} ->
         conn
@@ -46,12 +46,20 @@ defmodule InterviewManagmentWeb.InterviewController do
 
     case Interviews.set_got_interview(interview, value) do
       {:ok, _interview} ->
-        redirect(conn, to: ~p"/")
+        redirect(conn, to: index_path(params))
 
       {:error, _changeset} ->
         conn
         |> put_flash(:error, "Could not update the interview status.")
-        |> redirect(to: ~p"/")
+        |> redirect(to: index_path(params))
+    end
+  end
+
+  # Builds the index path, preserving the active search query if present.
+  defp index_path(params) do
+    case Map.get(params, "search") do
+      search when is_binary(search) and search != "" -> ~p"/?search=#{search}"
+      _ -> ~p"/"
     end
   end
 
@@ -61,19 +69,19 @@ defmodule InterviewManagmentWeb.InterviewController do
   defp parse_got_interview("false", false), do: nil
   defp parse_got_interview("false", _current), do: false
 
-  def update_contacted(conn, %{"id" => id, "interview" => interview_params}) do
+  def update_contacted(conn, %{"id" => id, "interview" => interview_params} = params) do
     interview = Interviews.get_interview!(id)
 
     case Interviews.update_interview(interview, interview_params) do
       {:ok, _interview} ->
         conn
         |> put_flash(:info, "Contacted date updated.")
-        |> redirect(to: ~p"/")
+        |> redirect(to: index_path(params))
 
       {:error, _changeset} ->
         conn
         |> put_flash(:error, "Could not update the contacted date.")
-        |> redirect(to: ~p"/")
+        |> redirect(to: index_path(params))
     end
   end
 end

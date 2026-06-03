@@ -83,6 +83,7 @@
         method="patch"
         class="flex items-center gap-2"
       >
+        <input type="hidden" name="search" value={@search} />
         <input
           type="date"
           name="interview[date_contacted]"
@@ -112,6 +113,7 @@
           action={~p"/interviews/#{interview.id}/got_interview"}
           method="patch"
         >
+          <input type="hidden" name="search" value={@search} />
           <input type="hidden" name="got_interview" value="true" />
           <button
             type="submit"
@@ -136,6 +138,7 @@
           action={~p"/interviews/#{interview.id}/got_interview"}
           method="patch"
         >
+          <input type="hidden" name="search" value={@search} />
           <input type="hidden" name="got_interview" value="false" />
           <button
             type="submit"
