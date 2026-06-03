@@ -8,7 +8,7 @@
     </:actions>
   </.header>
 
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
     <div class="stats bg-primary text-primary-content shadow w-full">
       <div class="stat">
         <div class="stat-figure text-primary-content/70">
@@ -44,6 +44,19 @@
         <div class="stat-value">{@got_interview}</div>
         <div class="stat-desc text-primary-content/70">
           interview{if @got_interview != 1, do: "s"} secured
+        </div>
+      </div>
+    </div>
+
+    <div class="stats bg-primary text-primary-content shadow w-full">
+      <div class="stat">
+        <div class="stat-figure text-primary-content/70">
+          <.icon name="hero-x-circle" class="size-8" />
+        </div>
+        <div class="stat-title text-primary-content/70">Denied without interview</div>
+        <div class="stat-value">{@denied_without_interview}</div>
+        <div class="stat-desc text-primary-content/70">
+          contacted, no interview
         </div>
       </div>
     </div>
@@ -93,28 +106,55 @@
     </:col>
     <:col :let={interview} label="Company name">{interview.company_name}</:col>
     <:col :let={interview} label="Got interview">
-      <.form
-        for={%{}}
-        action={~p"/interviews/#{interview.id}/got_interview"}
-        method="patch"
-      >
-        <button
-          type="submit"
-          class="btn btn-ghost btn-sm btn-circle"
-          title={if interview.got_interview, do: "Got interview", else: "No interview yet"}
+      <div class="flex items-center gap-1">
+        <.form
+          for={%{}}
+          action={~p"/interviews/#{interview.id}/got_interview"}
+          method="patch"
         >
-          <.icon
-            :if={interview.got_interview}
-            name="hero-check-circle-solid"
-            class="size-6 text-success"
-          />
-          <.icon
-            :if={!interview.got_interview}
-            name="hero-check-circle"
-            class="size-6 text-base-content/30"
-          />
-        </button>
-      </.form>
+          <input type="hidden" name="got_interview" value="true" />
+          <button
+            type="submit"
+            class="btn btn-ghost btn-sm btn-circle"
+            title="Got interview"
+          >
+            <.icon
+              :if={interview.got_interview == true}
+              name="hero-check-circle-solid"
+              class="size-6 text-success"
+            />
+            <.icon
+              :if={interview.got_interview != true}
+              name="hero-check-circle"
+              class="size-6 text-base-content/30"
+            />
+          </button>
+        </.form>
+
+        <.form
+          for={%{}}
+          action={~p"/interviews/#{interview.id}/got_interview"}
+          method="patch"
+        >
+          <input type="hidden" name="got_interview" value="false" />
+          <button
+            type="submit"
+            class="btn btn-ghost btn-sm btn-circle"
+            title="Didn't get interview"
+          >
+            <.icon
+              :if={interview.got_interview == false}
+              name="hero-x-circle-solid"
+              class="size-6 text-error"
+            />
+            <.icon
+              :if={interview.got_interview != false}
+              name="hero-x-circle"
+              class="size-6 text-base-content/30"
+            />
+          </button>
+        </.form>
+      </div>
     </:col>
   </.table>
 

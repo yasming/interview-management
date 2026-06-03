@@ -48,6 +48,10 @@ defmodule InterviewManagment.Interviews do
     Repo.aggregate(from(i in Interview, where: i.got_interview == true), :count, :id)
   end
 
+  def count_denied_without_interview do
+    Repo.aggregate(from(i in Interview, where: i.got_interview == false), :count, :id)
+  end
+
   def create_interview(attrs \\ %{}) do
     %Interview{}
     |> Interview.changeset(attrs)
@@ -64,7 +68,7 @@ defmodule InterviewManagment.Interviews do
     Interview.changeset(interview, attrs)
   end
 
-  def toggle_got_interview(%Interview{} = interview) do
-    update_interview(interview, %{got_interview: !interview.got_interview})
+  def set_got_interview(%Interview{} = interview, value) do
+    update_interview(interview, %{got_interview: value})
   end
 end

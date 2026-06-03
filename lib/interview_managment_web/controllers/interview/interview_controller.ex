@@ -13,6 +13,7 @@ defmodule InterviewManagmentWeb.InterviewController do
       applied_today: Interviews.count_applied_on(Date.utc_today()),
       total_applied: Interviews.count_total_applied(),
       got_interview: Interviews.count_got_interview(),
+      denied_without_interview: Interviews.count_denied_without_interview(),
       form: Phoenix.Component.to_form(Interviews.change_interview(%Interview{}))
     )
   end
@@ -33,15 +34,17 @@ defmodule InterviewManagmentWeb.InterviewController do
           applied_today: Interviews.count_applied_on(Date.utc_today()),
           total_applied: Interviews.count_total_applied(),
           got_interview: Interviews.count_got_interview(),
+          denied_without_interview: Interviews.count_denied_without_interview(),
           form: Phoenix.Component.to_form(changeset)
         )
     end
   end
 
-  def toggle_got_interview(conn, %{"id" => id}) do
+  def set_got_interview(conn, %{"id" => id} = params) do
     interview = Interviews.get_interview!(id)
+    value = parse_got_interview(Map.get(params, "got_interview"), interview.got_interview)
 
-    case Interviews.toggle_got_interview(interview) do
+    case Interviews.set_got_interview(interview, value) do
       {:ok, _interview} ->
         redirect(conn, to: ~p"/")
 
@@ -51,6 +54,12 @@ defmodule InterviewManagmentWeb.InterviewController do
         |> redirect(to: ~p"/")
     end
   end
+
+  # Clicking the already-active choice clears it back to undecided (nil).
+  defp parse_got_interview("true", true), do: nil
+  defp parse_got_interview("true", _current), do: true
+  defp parse_got_interview("false", false), do: nil
+  defp parse_got_interview("false", _current), do: false
 
   def update_contacted(conn, %{"id" => id, "interview" => interview_params}) do
     interview = Interviews.get_interview!(id)
